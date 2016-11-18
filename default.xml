@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <default sync-j="4"/>
+
+  <remote name="github"
+  fetch="git://github.com/mayqueenEMBEDDED/" />
+
+  <remote name="yocto"
+  fetch="git://git.yoctoproject.org" />
+
+
+  <project remote="yocto" name="poky" path="poky" revision="krogoth-15.0.1"  />
+  <project path="meta-tailyn-bsp-release" name="meta-tailyn-bsp-release" remote="github" revision="jethro_4.4.19-1.1.0_ga" />
+
+</manifest>
