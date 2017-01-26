@@ -1,5 +1,8 @@
+= NutsBoard Yocto BSP
+
 Environment Setup
 
+[source,console]
 % sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib \
  build-essential chrpath  socat \
  libsdl1.2-dev xterm  sed cvs subversion coreutils texi2html \
@@ -7,34 +10,87 @@ Environment Setup
  libgl1-mesa-dev libglu1-mesa-dev mercurial autoconf automake groff curl lzop asciidoc
 
 For Ubuntu 12.04 host setup only:
-
+[source,console]
 % sudo apt-get install uboot-mkimage
 
 For Ubuntu 14.04 or later revision host setup:
-
+[source,console]
 % sudo apt-get install u-boot-tools
+
+
 
 To get the BSP you need to have repo installed and use it as:
 
 Download the BSP source:
 
+[source,console]
 % PATH=${PATH}:~/bin
 % mkdir yocto_project
 % cd yocto_project
-% repo init -u https://github.com/mayqueenEMBEDDED/tailyn-yocto-bsp.git -b jethro_4.4.19-1.1.0_ga
+% repo init -u https://github.com/nutsboard/nutsboard-yocto-bsp.git -b jethro_4.4.32-1.0.0_ga
 % repo sync
+
+
 
 At the end of the commands you have every metadata you need to start work with.
 
 To start a simple image build:
-
+[source,console]
 % cd <local path>/yocto_project/poky/
 % source oe-init-build-env
 
+
 You must specify which machine is your target at $(BUILDDIR)conf/local.conf. By default it is qemu. We need to build an
-image for a customer board (ex:st7b2). Update the MACHINE configuration variable accordingly.
+image for a customer board (ex:almond). Update the MACHINE configuration variable accordingly.
 
 Don’t forget to make the configuration aware of the Tailyn layer. Edit the layer configuration file ($BUILDDIR/conf/bblayers.conf) and 
 append the full path to the meta-tailyn-bsp-release directory to the BBLAYERS variable.
 
+
+To generate the poky cross compilier environment, it's easy to use to develop applications.
+[source,console]
+% bitbake meta-toolchain
+
+
+To generate the poky image with tailyn customize meta-layer.
+[source,console]
 % bitbake core-image-minimal
+
+
+
+The image elements as follows:
+
+Example - Almond
+
+Output Path: <build path>/tmp/deploy/images/almond/
+
+Partition 1: MLO, u-boot.img, zImage, am335x-nutsboard-almond.dtb, uEnv.txt
+
+Partition 2: core-image-minimal-almond-<date>.rootfs.tar.xz, modules.tgz
+
+Nand Flash UBI: core-image-minimal-almond-<date>.rootfs.ubifsi
+
+
+
+Installing the toolchain:
+
+Path: <build path>/build/tmp/deploy/sdk/poky-glibc-x86_64-meta-toolchain-armv7ahf-neon-toolchain-2.1.1.sh
+
+After Installtion, please source the environment to auto setting the poky compile environment.
+[source,console]
+% source environment-setup-armv7ahf-neon-poky-linux-gnueabi
+
+
+An AP file compile:
+[source,console]
+% $CC hello.c -o hello
+
+
+How to add additional packages, for a simple example:
+Edit <build path>/conf/local.conf/
+[source,console]
+EXTRA_IMAGE_FEATURES ?= "debug-tweaks ssh-server-openssh"
+IMAGE_INSTALL_append = "i2c-tools wget"
+
+Then re-compile again!
+
