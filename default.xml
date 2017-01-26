@@ -4,13 +4,13 @@
   <default sync-j="4"/>
 
   <remote name="github"
-  fetch="git://github.com/mayqueenEMBEDDED/" />
+  fetch="git://github.com/nutsboard/" />
 
   <remote name="yocto"
   fetch="git://git.yoctoproject.org" />
 
 
-  <project remote="yocto" name="poky" path="poky" revision="krogoth-15.0.1"  />
-  <project path="meta-tailyn-bsp-release" name="meta-tailyn-bsp-release" remote="github" revision="jethro_4.4.19-1.1.0_ga" />
+  <project remote="yocto" name="poky" path="poky" revision="f5da2a5913319ad6ac2141438ba1aa17576326ab"  />
+  <project path="poky/meta-nutsboard-bsp-release" name="meta-nutsboard-bsp-release" remote="github" revision="jethro_4.4.32-1.0.0_ga" />
 
 </manifest>
