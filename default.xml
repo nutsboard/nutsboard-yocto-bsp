@@ -11,6 +11,6 @@
 
 
   <project remote="yocto" name="poky" path="poky" revision="f5da2a5913319ad6ac2141438ba1aa17576326ab"  />
-  <project path="poky/meta-nutsboard-bsp-release" name="meta-nutsboard-bsp-release" remote="github" revision="jethro_4.4.32-1.0.0_ga" />
+  <project path="poky/meta-nutsboard-bsp-release" name="meta-nutsboard-bsp-release" remote="github" revision="krogoth_4.4.32-1.0.0_ga" />
 
 </manifest>
