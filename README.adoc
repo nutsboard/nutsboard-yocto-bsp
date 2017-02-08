@@ -27,7 +27,7 @@ Download the BSP source:
 % PATH=${PATH}:~/bin
 % mkdir yocto_project
 % cd yocto_project
-% repo init -u https://github.com/nutsboard/nutsboard-yocto-bsp.git -b jethro_4.4.32-1.0.0_ga
+% repo init -u https://github.com/nutsboard/nutsboard-yocto-bsp.git -b krogoth_4.4.32-1.0.0_ga
 % repo sync
 
 
@@ -86,11 +86,11 @@ An AP file compile:
 % $CC hello.c -o hello
 
 
-How to add additional packages, for a simple example:
+How to add additional packages, for Almond SoM, we showing a simple example:
 Edit <build path>/conf/local.conf/
 [source,console]
 EXTRA_IMAGE_FEATURES ?= "debug-tweaks ssh-server-openssh"
-IMAGE_INSTALL_append = "i2c-tools wget"
+IMAGE_INSTALL_append = "i2c-tools wget wpa-supplicant iw procps wireless-tools iptables busybox bash iptables minicom util-linux bluez5 bridge-utils dnsmasq hostapd firmware-wg7833 create-ap mtd-utils libsocketcan canutils uim iperf iperf3 memtester ppp iproute2 ethtool coreutils haveged"
 
 Then re-compile again!
 
