@@ -43,8 +43,8 @@ To start a simple image build:
 You must specify which machine is your target at $(BUILDDIR)conf/local.conf. By default it is qemu. We need to build an
 image for a customer board (ex:almond). Update the MACHINE configuration variable accordingly.
 
-Don’t forget to make the configuration aware of the Tailyn layer. Edit the layer configuration file ($BUILDDIR/conf/bblayers.conf) and 
-append the full path to the meta-tailyn-bsp-release directory to the BBLAYERS variable.
+Don’t forget to make the configuration aware of the nutsboard layer. Edit the layer configuration file ($BUILDDIR/conf/bblayers.conf) and 
+append the full path to the meta-nutsboard-bsp-release directory to the BBLAYERS variable.
 
 
 To generate the poky cross compilier environment, it's easy to use to develop applications.
@@ -52,7 +52,7 @@ To generate the poky cross compilier environment, it's easy to use to develop ap
 % bitbake meta-toolchain
 
 
-To generate the poky image with tailyn customize meta-layer.
+To generate the poky image with nutsboard customize meta-layer.
 [source,console]
 % bitbake core-image-minimal
 
@@ -69,7 +69,6 @@ Partition 1: MLO, u-boot.img, zImage, am335x-nutsboard-almond.dtb, uEnv.txt
 Partition 2: core-image-minimal-almond-<date>.rootfs.tar.xz, modules.tgz
 
 Nand Flash UBI: core-image-minimal-almond-<date>.rootfs.ubifsi
-
 
 
 Installing the toolchain:
@@ -94,3 +93,35 @@ IMAGE_INSTALL_append = "i2c-tools wget wpa-supplicant iw procps wireless-tools i
 
 Then re-compile again!
 
+-------------------------------------------------------------
+2017/03/23 Update: How to build a QT based applications
+To download the meta-layer source of the QT (Ex: QT4)
+[source,console]
+% cd <local path>/yocto_project/poky/
+% git clone git://git.yoctoproject.org/meta-qt4.git
+
+Add meta-qt4 location to ($BUILDDIR/conf/bblayers.conf)
+
+To generate the poky cross compilier environment, it's easy to use to develop applications.
+[source,console]
+% bitbake meta-toolchain-qt
+
+
+To generate the poky image with nutsboard customize qt4 meta-layer.
+[source,console]
+% bitbake bitbake qt4e-demo-image
+
+Installing the qt based toolchain:
+
+Path: <build path>/build/tmp/deploy/sdk/poky-glibc-x86_64-meta-toolchain-qt-armv7ahf-neon-toolchain-qt-2.1.1.sh
+
+After Installtion, please source the environment to auto setting the poky compile environment.
+[source,console]
+% source environment-setup-armv7ahf-neon-poky-linux-gnueabi
+
+
+A QT application project compile:
+[source,console]
+% cd <your QT project>
+% qmake
+% make
